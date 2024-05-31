@@ -24,3 +24,13 @@ There are a few files in utils:
 - The `example.js` script shows how we can generate a root, generate a proof and verify that some value is in the root using the proof. Try it out from the top-level folder with `node/example.js`
 - The `MerkleTree.js` should look familiar from the Merkle Tree module! This one has been modified so you should not have to deal with any crypto type conversion. You can import this in your client/server
 - The `verifyProof.js` should also look familiar. This was the last stage in the module. You can use this function to prove a name is in the merkle root, as show in the example.
+
+## Solution
+
+As the server can just store a 32 byte value in its memory, we only can store the whole list of names by using hashes, in this case Merkle Trees.
+
+In "./utils/example.js" we calculated the root for "./utils/niceList.json" and hardcoded it into the server. That of course wouldn't work if we were to made changes on the list.
+
+In "./client/index.js" we recreate the merkleTree of the list and get proof of existence of a particular name. Then, to be sent to server for it to verify.
+
+In "./server/index.js" we receive name and proof from client and verifyProof by using the Merkle root stored in our memory. Then, response back to client.
